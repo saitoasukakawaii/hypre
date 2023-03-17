@@ -1363,7 +1363,7 @@ hypre_BoomerAMGBuildRestrDist2AIR( hypre_ParCSRMatrix   *A,
             if (err > 1e-8)
             {
                hypre_printf("triangular solve res: %e\n", err);
-               exit(0);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 0);
             }
 #endif
          }
@@ -1397,7 +1397,7 @@ hypre_BoomerAMGBuildRestrDist2AIR( hypre_ParCSRMatrix   *A,
             if (err > 1e-8)
             {
                hypre_printf("dense: local res norm %e\n", err);
-               exit(0);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
             }
 #endif
          }
@@ -1427,7 +1427,7 @@ hypre_BoomerAMGBuildRestrDist2AIR( hypre_ParCSRMatrix   *A,
             {
                hypre_printf("GMRES/Jacobi: res norm %e, nrmb %e, relative %e\n", err, nrmb, err / nrmb);
                hypre_printf("GMRES/Jacobi: relative %e\n", gmresAi_res);
-               exit(0);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 0);
             }
 #endif
          }
