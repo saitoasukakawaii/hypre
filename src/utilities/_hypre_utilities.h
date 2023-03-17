@@ -3132,8 +3132,7 @@ hypre_UnorderedIntSetPut( hypre_UnorderedIntSet *s,
 
    //NEED TO RESIZE ..........................
    hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ERROR - RESIZE is not implemented\n");
-   /*fprintf(stderr, "ERROR - RESIZE is not implemented\n");*/
-   exit(1);
+
    return;
 }
 
@@ -3214,8 +3213,7 @@ hypre_UnorderedBigIntSetPut( hypre_UnorderedBigIntSet *s,
 
    //NEED TO RESIZE ..........................
    hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ERROR - RESIZE is not implemented\n");
-   /*fprintf(stderr, "ERROR - RESIZE is not implemented\n");*/
-   exit(1);
+
    return;
 }
 
@@ -3296,8 +3294,7 @@ hypre_UnorderedIntMapPutIfAbsent( hypre_UnorderedIntMap *m,
 
    //NEED TO RESIZE ..........................
    hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ERROR - RESIZE is not implemented\n");
-   /*fprintf(stderr, "ERROR - RESIZE is not implemented\n");*/
-   exit(1);
+
    return HYPRE_HOPSCOTCH_HASH_EMPTY;
 }
 
@@ -3378,8 +3375,7 @@ hypre_UnorderedBigIntMapPutIfAbsent( hypre_UnorderedBigIntMap *m,
 
    //NEED TO RESIZE ..........................
    hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ERROR - RESIZE is not implemented\n");
-   /*fprintf(stderr, "ERROR - RESIZE is not implemented\n");*/
-   exit(1);
+
    return HYPRE_HOPSCOTCH_HASH_EMPTY;
 }
 

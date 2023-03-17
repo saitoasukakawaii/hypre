@@ -355,7 +355,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (cudaSuccess != err) {                                                                 \
       printf("CUDA ERROR (code = %d, %s) at %s:%d\n", err, cudaGetErrorString(err),          \
                    __FILE__, __LINE__);                                                      \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #elif defined(HYPRE_USING_HIP)
@@ -364,7 +364,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (hipSuccess != err) {                                                                  \
       printf("HIP ERROR (code = %d, %s) at %s:%d\n", err, hipGetErrorString(err),            \
                    __FILE__, __LINE__);                                                      \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #elif defined(HYPRE_USING_SYCL)
@@ -377,13 +377,13 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    {                                                                                         \
       hypre_printf("SYCL ERROR (code = %s) at %s:%d\n", ex.what(),                           \
                      __FILE__, __LINE__);                                                    \
-      assert(0); exit(1);                                                                    \
+      assert(0);                                                                             \
    }                                                                                         \
    catch(std::runtime_error const& ex)                                                       \
    {                                                                                         \
       hypre_printf("STD ERROR (code = %s) at %s:%d\n", ex.what(),                            \
                    __FILE__, __LINE__);                                                      \
-      assert(0); exit(1);                                                                    \
+      assert(0);                                                                             \
    }
 #endif
 
@@ -463,7 +463,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (CUBLAS_STATUS_SUCCESS != err) {                                                       \
       printf("CUBLAS ERROR (code = %d, %d) at %s:%d\n",                                      \
             err, err == CUBLAS_STATUS_EXECUTION_FAILED, __FILE__, __LINE__);                 \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_ROCBLAS_CALL(call) do {                                                        \
@@ -471,7 +471,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (rocblas_status_success != err) {                                                      \
       printf("rocBLAS ERROR (code = %d, %s) at %s:%d\n",                                     \
              err, rocblas_status_to_string(err), __FILE__, __LINE__);                        \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_CUSPARSE_CALL(call) do {                                                       \
@@ -479,7 +479,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (CUSPARSE_STATUS_SUCCESS != err) {                                                     \
       printf("CUSPARSE ERROR (code = %d, %s) at %s:%d\n",                                    \
             err, cusparseGetErrorString(err), __FILE__, __LINE__);                           \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_ROCSPARSE_CALL(call) do {                                                      \
@@ -487,7 +487,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (rocsparse_status_success != err) {                                                    \
       printf("rocSPARSE ERROR (code = %d) at %s:%d\n",                                       \
             err, __FILE__, __LINE__);                                                        \
-      assert(0); exit(1);                                                                    \
+      assert(0);                                                                             \
    } } while(0)
 
 #define HYPRE_CUSOLVER_CALL(call) do {                                                       \
@@ -495,7 +495,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (CUSOLVER_STATUS_SUCCESS != err) {                                                     \
       printf("cuSOLVER ERROR (code = %d) at %s:%d\n",                                        \
             err, __FILE__, __LINE__);                                                        \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_ROCSOLVER_CALL(call) do {                                                      \
@@ -503,21 +503,21 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    if (rocblas_status_success != err) {                                                      \
       printf("rocSOLVER ERROR (code = %d, %s) at %s:%d\n",                                   \
              err, rocblas_status_to_string(err), __FILE__, __LINE__);                        \
-      assert(0); exit(1);                                                                    \
+      assert(0);                                                                             \
    } } while(0)
 
 #define HYPRE_CURAND_CALL(call) do {                                                         \
    curandStatus_t err = call;                                                                \
    if (CURAND_STATUS_SUCCESS != err) {                                                       \
       printf("CURAND ERROR (code = %d) at %s:%d\n", err, __FILE__, __LINE__);                \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_ROCRAND_CALL(call) do {                                                        \
    rocrand_status err = call;                                                                \
    if (ROCRAND_STATUS_SUCCESS != err) {                                                      \
       printf("ROCRAND ERROR (code = %d) at %s:%d\n", err, __FILE__, __LINE__);               \
-      hypre_assert(0); exit(1);                                                              \
+      hypre_assert(0);                                                                       \
    } } while(0)
 
 #define HYPRE_ONEMKL_CALL(call)                                                              \
@@ -529,7 +529,7 @@ using hypre_DeviceItem = sycl::nd_item<3>;
    {                                                                                         \
       hypre_printf("ONEMKL ERROR (code = %s) at %s:%d\n", ex.what(),                         \
                    __FILE__, __LINE__);                                                      \
-      assert(0); exit(1);                                                                    \
+      assert(0);                                                                             \
    }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
