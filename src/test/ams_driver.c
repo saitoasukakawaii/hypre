@@ -26,7 +26,7 @@ void CheckIfFileExists(char *file)
    {
       hypre_MPI_Finalize();
       hypre_printf("Can't find the input file \"%s\"\n", file);
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
    fclose(test);
 }
@@ -43,7 +43,7 @@ void AMSDriverMatrixRead(const char *file, HYPRE_ParCSRMatrix *A)
       {
          hypre_MPI_Finalize();
          hypre_printf("Can't find the input file \"%s\"\n", file);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else /* Read in IJ format*/
       {
@@ -75,7 +75,7 @@ void AMSDriverVectorRead(const char *file, HYPRE_ParVector *x)
       {
          hypre_MPI_Finalize();
          hypre_printf("Can't find the input file \"%s\"\n", file);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else /* Read in IJ format*/
       {

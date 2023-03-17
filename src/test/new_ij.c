@@ -1363,7 +1363,11 @@ main( hypre_int argc,
       hypre_printf("  -nongalerk_tol <val> <list>    : specify the NonGalerkin drop tolerance\n");
       hypre_printf("                                   and list contains the values, where last value\n");
       hypre_printf("                                   in list is repeated if val < num_levels in AMG\n");
-      exit(1);
+   }
+
+   if (print_usage)
+   {
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1395,7 +1399,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the system matrix!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
    else if ( build_matrix_type == 0 )
@@ -1723,7 +1727,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in rbm!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
    /*-----------------------------------------------------------
@@ -1747,7 +1751,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the right-hand-side!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       ierr = HYPRE_IJVectorGetObject( ij_b, &object );
       b = (HYPRE_ParVector) object;
@@ -2009,7 +2013,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the right-hand-side!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       ierr = HYPRE_IJVectorGetObject( ij_b, &object );
       b = (HYPRE_ParVector) object;
@@ -2621,15 +2625,18 @@ main( hypre_int argc,
       HYPRE_ParaSailsSetFilter(pcg_precond, 0.);
       HYPRE_ParaSailsSetLogging(pcg_precond, ioutdat);
 
-      HYPRE_IJMatrixGetObject( ij_A, &object);
+      HYPRE_IJMatrixGetObject(ij_A, &object);
       parcsr_mat = (HYPRE_ParCSRMatrix) object;
 
       HYPRE_ParaSailsSetup(pcg_precond, parcsr_mat, NULL, NULL);
       HYPRE_ParaSailsBuildIJMatrix(pcg_precond, &ij_M);
       HYPRE_IJMatrixPrint(ij_M, "parasails.out");
 
-      if (myid == 0) { hypre_printf("Printed to parasails.out.\n"); }
-      exit(0);
+      if (myid == 0)
+      {
+         hypre_printf("Printed to parasails.out.\n");
+      }
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 0);
    }
 
    /*-----------------------------------------------------------
@@ -4299,7 +4306,7 @@ BuildParFromFile( HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -4359,7 +4366,7 @@ BuildParRhsFromFile( HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -4504,7 +4511,7 @@ BuildParLaplacian( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -4965,7 +4972,7 @@ BuildParDifConv( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5074,7 +5081,7 @@ BuildParFromOneFile( HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5186,7 +5193,7 @@ BuildFuncsFromOneFile(  HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5283,7 +5290,7 @@ BuildRhsParFromOneFile( HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5377,7 +5384,7 @@ BuildParLaplacian9pt( HYPRE_Int                  argc,
    if ((P * Q) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5502,7 +5509,7 @@ BuildParLaplacian27pt( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5631,7 +5638,7 @@ BuildParRotate7pt( HYPRE_Int                  argc,
    if ((P * Q) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5749,7 +5756,7 @@ BuildParVarDifConv( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -5909,6 +5916,3 @@ BuildParCoordinates( HYPRE_Int                  argc,
    *coord_ptr = coordinates;
    return (0);
 }
-
-
-

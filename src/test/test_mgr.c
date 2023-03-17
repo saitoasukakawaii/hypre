@@ -314,7 +314,7 @@ main( hypre_int argc,
    if (ierr)
    {
       hypre_printf("ERROR: Problem reading in the system matrix!\n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
    else
    {
@@ -364,7 +364,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the right-hand-side!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       ierr = HYPRE_IJVectorGetObject( ij_b, &object );
       b = (HYPRE_ParVector) object;
@@ -447,7 +447,7 @@ main( hypre_int argc,
       if (ifp == NULL)
       {
          fprintf(stderr, "Can't open input file for marker array!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else
       {
@@ -1084,7 +1084,7 @@ ReadParVectorFromFile( HYPRE_Int            argc,
    else
    {
       hypre_printf("  Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1146,7 +1146,7 @@ BuildParFromFile( HYPRE_Int                  argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1168,5 +1168,3 @@ BuildParFromFile( HYPRE_Int                  argc,
 
    return (0);
 }
-
-

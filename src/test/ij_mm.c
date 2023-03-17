@@ -78,7 +78,7 @@ void gpu_alloc(void **ptr, size_t size)
    if (current_size > total_size)
    {
       hypre_printf("Out of GPU memory\n");
-      exit(0);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 0);
    }
 }
 
@@ -1057,7 +1057,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the system matrix in MM format!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
    else if ( build_matrix_type == -1 )
@@ -1067,7 +1067,7 @@ main( hypre_int argc,
       if (ierr)
       {
          hypre_printf("ERROR: Problem reading in the system matrix!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
    else if ( build_matrix_type == 0 )
@@ -1083,7 +1083,7 @@ main( hypre_int argc,
       if (ierr1 || ierr2)
       {
          hypre_printf("ERROR: Problem reading in the system matrix!\n");
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
    else if ( build_matrix_type == 2 )
@@ -1247,7 +1247,7 @@ BuildParFromFile( HYPRE_Int            argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1307,7 +1307,7 @@ BuildParRhsFromFile( HYPRE_Int            argc,
    else
    {
       hypre_printf("Error: No filename specified \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1452,7 +1452,7 @@ BuildParLaplacian( HYPRE_Int            argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -1932,7 +1932,7 @@ BuildParDifConv( HYPRE_Int            argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -2185,7 +2185,7 @@ BuildParLaplacian9pt( HYPRE_Int                  argc,
    if ((P * Q) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -2310,7 +2310,7 @@ BuildParLaplacian27pt( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -2439,7 +2439,7 @@ BuildParRotate7pt( HYPRE_Int                  argc,
    if ((P * Q) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -2568,7 +2568,7 @@ BuildParVarDifConv( HYPRE_Int                  argc,
    if ((P * Q * R) != num_procs)
    {
       hypre_printf("Error: Invalid number of processors or processor topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------

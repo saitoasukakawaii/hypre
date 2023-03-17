@@ -437,7 +437,7 @@ ReadData( char         *filename,
       if ((file = fopen(filename, "r")) == NULL)
       {
          hypre_printf("Error: can't open input file %s\n", filename);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
 
       /* allocate initial space, and read first input line */
@@ -541,7 +541,7 @@ ReadData( char         *filename,
             if ( (il != 0) || (iu != 1) )
             {
                hypre_printf("Error: Invalid use of `+-' in GridSetExtents\n");
-               exit(1);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
             }
             pdata.boxsizes[pdata.nboxes] = 1;
             for (i = 0; i < 3; i++)
@@ -568,7 +568,7 @@ ReadData( char         *filename,
          {
             /* TODO */
             hypre_printf("GridAddVariables not yet implemented!\n");
-            exit(1);
+            hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
          }
          else if ( strcmp(key, "GridSetNeighborPart:") == 0 ||
                    strcmp(key, "GridSetSharedPart:") == 0 )
@@ -670,7 +670,7 @@ ReadData( char         *filename,
             if (data.fem_nvars > 0)
             {
                hypre_printf("Stencil and FEMStencil cannot be used together\n");
-               exit(1);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
             }
             data.nstencils = strtol(sdata_ptr, &sdata_ptr, 10);
             data.stencil_sizes   = hypre_CTAlloc(HYPRE_Int,  data.nstencils, HYPRE_MEMORY_HOST);
@@ -715,7 +715,7 @@ ReadData( char         *filename,
             if (data.nstencils > 0)
             {
                hypre_printf("Stencil and FEMStencil cannot be used together\n");
-               exit(1);
+               hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
             }
             data.fem_nvars = strtol(sdata_ptr, &sdata_ptr, 10);
             data.fem_offsets = hypre_CTAlloc(Index,  data.fem_nvars, HYPRE_MEMORY_HOST);
@@ -1226,7 +1226,7 @@ DistributeData( ProblemData   global_data,
    {
       hypre_printf("%d,  %d \n", pool_procs[data.npools], num_procs);
       hypre_printf("Error: Invalid number of processes or process topology \n");
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /* modify part data */
@@ -2544,7 +2544,7 @@ main( hypre_int argc,
       else if ( strcmp(argv[arg_index], "-help") == 0 )
       {
          PrintUsage(argv[0], myid);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else if ( strcmp(argv[arg_index], "-version") == 0 )
       {
@@ -2552,7 +2552,7 @@ main( hypre_int argc,
          HYPRE_Version(&version_string);
          hypre_printf("%s\n", version_string);
          hypre_TFree(version_string, HYPRE_MEMORY_HOST);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else if ( strcmp(argv[arg_index], "-vernum") == 0 )
       {
@@ -2560,7 +2560,7 @@ main( hypre_int argc,
          HYPRE_VersionNumber(&major, &minor, &patch, &single);
          hypre_printf("HYPRE Version %d.%d.%d\n", major, minor, patch);
          hypre_printf("HYPRE Single = %d\n", single);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
       else
       {
@@ -2607,7 +2607,7 @@ main( hypre_int argc,
          {
             hypre_printf("Error: Must read A, b, and x from file! \n");
          }
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
       }
    }
 
@@ -2982,7 +2982,7 @@ main( hypre_int argc,
             {
                hypre_printf("Error: Invalid number of nvars for Struct Solver \n");
             }
-            exit(1);
+            hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
          }
       }
 
@@ -6087,7 +6087,7 @@ main( hypre_int argc,
                if ((file = fopen(filename, "w")) == NULL)
                {
                   hypre_printf("Error: can't open output file %s\n", filename);
-                  exit(1);
+                  hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
                }
                for (box = 0; box < pdata.nboxes; box++)
                {

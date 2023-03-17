@@ -696,9 +696,9 @@ main( hypre_int argc,
       /* end lobpcg */
    }
 
-   if ( print_usage )
+   if (print_usage)
    {
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
 
    /*-----------------------------------------------------------
@@ -711,7 +711,7 @@ main( hypre_int argc,
       {
          hypre_printf("Error: PxQxR is more than the number of processors\n");
       }
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, 1);
    }
    else if ((P * Q * R) < num_procs)
    {
