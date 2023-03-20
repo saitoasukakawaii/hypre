@@ -42,9 +42,9 @@ When building with the install target, the libraries and files are copied into
 the directories specified by the configure option, `--prefix=/usr/apps`. If none
 were specified, the default directories are used, `hypre/lib` and `hypre/include`.
 
-## Building hypre for NVIDIA GPUs (CUDA)
+## Building HYPRE for NVIDIA GPUs (CUDA)
 
-We recommend the following configure options when building hypre for NVIDIA GPUs:
+We recommend the following configure options when building HYPRE for NVIDIA GPUs:
 
 ```
 ./configure --with-gpu-arch=${CUDA_SM}\
@@ -54,15 +54,21 @@ We recommend the following configure options when building hypre for NVIDIA GPUs
             --with-umpire-lib-dirs=${UMPIRE_LIB_DIR} \
             --with-umpire-libs=umpire
 ```
-[Umpire](https://github.com/LLNL/Umpire) is a third-party library developed at LLNL that
-improves memory allocation and deallocation times on GPUs through a technique called
-memory pooling. We recommend the usage of Umpire when running hypre on GPUs since it
-improves the execution times of the setup phase of many preconditioners in hypre. Note
-that the user is responsible for installing Umpire and providing where its headers and
-library files are located to hypre's configure. If the user is unable to link hypre with
-Umpire, another option is to use the configure option `--enable-device-memory-pool`, which
-enables hypre's internal memory pooling implementation based on
-[cub](https://github.com/NVIDIA/cub).
+In the configure line above, `${CUDA_SM}` is a list of architectures to generate device
+code for, e.g., `${CUDA_SM}="70 80"` targets NVIDIA's Volta and Ampere
+architectures. The user can define as many device architectures as needed in the
+`${CUDA_SM}` variable, including just a single one, which is the most common use
+case. [Umpire](https://github.com/LLNL/Umpire) is a third-party library developed at LLNL
+that improves memory allocation and deallocation times on GPUs through a technique called
+memory pooling. We recommend the usage of Umpire when running HYPRE on GPUs since it
+reduces the setup times of many preconditioners (e.g., BoomerAMG). Note that the user is
+responsible for installing Umpire and providing to HYPRE's `configure` the directories
+where its headers (`${UMPIRE_INCLUDE_DIR}`) and library (`${UMPIRE_LIB_DIR}`) files are
+located. If the user is unable to employ Umpire, another option is to use the configure
+option `--enable-device-memory-pool`, which enables HYPRE's internal memory pooling
+implementation based on [cub](https://github.com/NVIDIA/cub). Lastly, other configure
+options might be necessary depending on the use case, e.g., `--enable-mixedint` when
+dealing with matrices/vectors whose number of rows is larger than `2,147,483,647`.
 
 ## Building hypre for AMD GPUs (HIP)
 
