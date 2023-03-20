@@ -26,22 +26,51 @@ The simplest way to build HYPRE is:
    typing `make clean`.  To remove additional files created by configure, type
    `make distclean`.
 
-Optional Features:
+## Optional Features:
 
 Configure has many options to allow the user to override and refine the defaults
-of any system.  To display the available options, type `configure --help`.
+of any system. To display the available options, type `configure --help`.
 
 The make step in building HYPRE is where the compiling, loading and creation of
-libraries occurs.  Make has several options called targets, which can be listed
+libraries occurs. Make has several options called targets, which can be listed
 by running `make help`.
 
 When building HYPRE without the install target, the libraries and include files
 are copied into the directories, `src/hypre/lib` and `src/hypre/include`.
 
 When building with the install target, the libraries and files are copied into
-the directories specified by the configure option, --prefix=/usr/apps.  If none
-were specified, the default directories are used, hypre/lib and hypre/include.
+the directories specified by the configure option, `--prefix=/usr/apps`. If none
+were specified, the default directories are used, `hypre/lib` and `hypre/include`.
 
+## Building hypre for NVIDIA GPUs (CUDA)
+
+We recommend the following configure options when building hypre for NVIDIA GPUs:
+
+```
+./configure --with-gpu-arch=${CUDA_SM}\
+            --with-cuda \
+            --with-umpire \
+            --with-umpire-include=${UMPIRE_INCLUDE_DIR} \
+            --with-umpire-lib-dirs=${UMPIRE_LIB_DIR} \
+            --with-umpire-libs=umpire
+```
+[Umpire](https://github.com/LLNL/Umpire) is a third-party library developed at LLNL that
+improves memory allocation and deallocation times on GPUs through a technique called
+memory pooling. We recommend the usage of Umpire when running hypre on GPUs since it
+improves the execution times of the setup phase of many preconditioners in hypre. Note
+that the user is responsible for installing Umpire and providing where its headers and
+library files are located to hypre's configure. If the user is unable to link hypre with
+Umpire, another option is to use the configure option `--enable-device-memory-pool`, which
+enables hypre's internal memory pooling implementation based on
+[cub](https://github.com/NVIDIA/cub).
+
+## Building hypre for AMD GPUs (HIP)
+
+TODO
+
+## Building hypre for Intel GPUs (SYCL)
+
+TODO
 
 HYPRE Installation Information using CMake
 ==========================================
@@ -90,4 +119,3 @@ ABI Compatibility
 The hypre team currently does nothing to ensure application binary interface
 (ABI) compatibility.  As a result, all releases (major, minor, or patch) should
 be treated as incompatible.
-
