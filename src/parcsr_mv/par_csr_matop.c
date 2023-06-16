@@ -2515,9 +2515,10 @@ hypre_ParCSRMatrixGenSpanningTree( hypre_ParCSRMatrix *G_csr,
  * extract submatrices based on given indices
  * ----------------------------------------------------------------------------- */
 
-void hypre_ParCSRMatrixExtractSubmatrices( hypre_ParCSRMatrix *A_csr,
-                                           HYPRE_Int *indices2,
-                                           hypre_ParCSRMatrix ***submatrices )
+HYPRE_Int
+hypre_ParCSRMatrixExtractSubmatrices( hypre_ParCSRMatrix   *A_csr,
+                                      HYPRE_Int            *indices2,
+                                      hypre_ParCSRMatrix ***submatrices )
 {
    HYPRE_Int    nrows_A, nindices, *indices, *A_diag_i, *A_diag_j, mypid, nprocs;
    HYPRE_Int    i, j, k, *proc_offsets1, *proc_offsets2, *exp_indices;
@@ -2554,7 +2555,7 @@ void hypre_ParCSRMatrixExtractSubmatrices( hypre_ParCSRMatrix *A_csr,
    if (nprocs > 1)
    {
       hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ExtractSubmatrices: cannot handle nprocs > 1 yet.\n");
-      exit(1);
+      return hypre_error_flag;
    }
 
    /* -----------------------------------------------------
@@ -2587,11 +2588,14 @@ void hypre_ParCSRMatrixExtractSubmatrices( hypre_ParCSRMatrix *A_csr,
    for (i = 0; i < nrows_A; i++) { exp_indices[i] = -1; }
    for (i = 0; i < nindices; i++)
    {
-      if (exp_indices[indices[i]] == -1) { exp_indices[indices[i]] = i; }
+      if (exp_indices[indices[i]] == -1)
+      {
+         exp_indices[indices[i]] = i;
+      }
       else
       {
-         hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ExtractSubmatrices: wrong index %d %d\n");
-         exit(1);
+         hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ExtractSubmatrices: wrong index!\n");
+         return hypre_error_flag;
       }
    }
    k = 0;
@@ -2947,11 +2951,14 @@ void hypre_ParCSRMatrixExtractRowSubmatrices( hypre_ParCSRMatrix *A_csr,
    for (i = 0; i < nrows_A; i++) { exp_indices[i] = -1; }
    for (i = 0; i < nindices; i++)
    {
-      if (exp_indices[indices[i]] == -1) { exp_indices[indices[i]] = i; }
+      if (exp_indices[indices[i]] == -1)
+      {
+         exp_indices[indices[i]] = i;
+      }
       else
       {
-         hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ExtractRowSubmatrices: wrong index %d %d\n");
-         exit(1);
+         hypre_error_w_msg(HYPRE_ERROR_GENERIC, "ExtractRowSubmatrices: wrong index!\n");
+         return hypre_error_flag;
       }
    }
    k = 0;

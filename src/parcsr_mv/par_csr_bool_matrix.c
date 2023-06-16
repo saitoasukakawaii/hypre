@@ -593,7 +593,7 @@ HYPRE_Int hypre_ParCSRBooleanMatrixPrintIJ( hypre_ParCSRBooleanMatrix *matrix,
    if ((file = fopen(new_filename, "w")) == NULL)
    {
       hypre_printf("Error: can't open output file %s\n", new_filename);
-      exit(1);
+      hypre_MPI_Abort(hypre_MPI_COMM_WORLD, -1);
    }
 
    hypre_fprintf(file, "%b, %b\n", global_num_rows, global_num_cols);
@@ -1070,5 +1070,3 @@ hypre_BooleanGenerateDiagAndOffd(hypre_CSRBooleanMatrix *A,
 
    return ierr;
 }
-
-

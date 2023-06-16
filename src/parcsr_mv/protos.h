@@ -315,8 +315,8 @@ HYPRE_Int hypre_ParCSRMatrixTransposeDevice ( hypre_ParCSRMatrix *A, hypre_ParCS
                                               HYPRE_Int data );
 void hypre_ParCSRMatrixGenSpanningTree ( hypre_ParCSRMatrix *G_csr, HYPRE_Int **indices,
                                          HYPRE_Int G_type );
-void hypre_ParCSRMatrixExtractSubmatrices ( hypre_ParCSRMatrix *A_csr, HYPRE_Int *indices2,
-                                            hypre_ParCSRMatrix ***submatrices );
+HYPRE_Int hypre_ParCSRMatrixExtractSubmatrices ( hypre_ParCSRMatrix *A_csr, HYPRE_Int *indices2,
+                                                 hypre_ParCSRMatrix ***submatrices );
 void hypre_ParCSRMatrixExtractRowSubmatrices ( hypre_ParCSRMatrix *A_csr, HYPRE_Int *indices2,
                                                hypre_ParCSRMatrix ***submatrices );
 HYPRE_Complex hypre_ParCSRMatrixLocalSumElts ( hypre_ParCSRMatrix *A );

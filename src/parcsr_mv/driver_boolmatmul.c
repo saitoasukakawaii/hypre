@@ -46,7 +46,7 @@ main( HYPRE_Int   argc,
       {
          hypre_printf( "incompatible matrix dimensions! (%i,%i)*(%i,%i)\n",
                        a_nrows, a_ncols, b_nrows, b_ncols );
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, -1);
       }
 
    }
@@ -77,4 +77,3 @@ main( HYPRE_Int   argc,
 
    return 0;
 }
-
