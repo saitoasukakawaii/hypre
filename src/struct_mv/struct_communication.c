@@ -453,7 +453,7 @@ hypre_CommPkgCreate( hypre_CommInfo   *comm_info,
       if ((file = fopen(filename, "a")) == NULL)
       {
          hypre_printf("Error: can't open output file %s\n", filename);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, -1);
       }
 
       hypre_fprintf(file, "\n\n============================\n\n");
@@ -535,7 +535,7 @@ hypre_CommPkgCreate( hypre_CommInfo   *comm_info,
       if ((file = fopen(filename, "a")) == NULL)
       {
          hypre_printf("Error: can't open output file %s\n", filename);
-         exit(1);
+         hypre_MPI_Abort(hypre_MPI_COMM_WORLD, -1);
       }
 
       hypre_fprintf(file, "\n\n============================\n\n");

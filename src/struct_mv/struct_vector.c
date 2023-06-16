@@ -1228,9 +1228,8 @@ hypre_StructVectorRead( MPI_Comm    comm,
 
    if ((file = fopen(new_filename, "r")) == NULL)
    {
-      hypre_printf("Error: can't open input file %s\n", new_filename);
-      hypre_error_in_arg(2);
-      exit(1);
+      hypre_error_w_msg(HYPRE_ERROR_GENERIC, "Error: can't open input file!\n");
+      return NULL;
    }
 
    /*----------------------------------------

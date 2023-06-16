@@ -1796,8 +1796,8 @@ hypre_StructMatrixPrint( const char         *filename,
 
    if ((file = fopen(new_filename, "w")) == NULL)
    {
-      hypre_printf("Error: can't open output file %s\n", new_filename);
-      exit(1);
+      hypre_error_w_msg(HYPRE_ERROR_GENERIC, "Error: can't open output file!\n");
+      return hypre_error_flag;
    }
 
    /*----------------------------------------
@@ -1894,8 +1894,8 @@ hypre_StructMatrixRead( MPI_Comm    comm,
 
    if ((file = fopen(new_filename, "r")) == NULL)
    {
-      hypre_printf("Error: can't open output file %s\n", new_filename);
-      exit(1);
+      hypre_error_w_msg(HYPRE_ERROR_GENERIC, "Error: can't open input file!\n");
+      return hypre_error_flag;
    }
 
    /*----------------------------------------
